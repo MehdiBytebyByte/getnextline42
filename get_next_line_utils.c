@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:57:04 by mboughra          #+#    #+#             */
-/*   Updated: 2023/12/19 21:16:48 by mboughra         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:54:22 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ size_t	ft_strlcpy(char	*dst,char	*src, size_t	dstsize)
 		dst[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
-	while (src[i])
+		while (src[i])
 	{
 		i++;
 	}
@@ -80,6 +79,7 @@ void	*ft_memcpy(void *dst, void *src, size_t n)
 		c_dest[i] = c_src[i];
 		i++;
 	}
+	c_dest[i] = '\0';
 	return (dst);
 }
 char	*ft_strchr(const char *s, int c)
@@ -111,4 +111,11 @@ int ft_nlfinder(char *n)
 	if(ft_strlen(n) == i)
 		return(-1);
 	return (i);
+}
+char	*ft_myrealloc(char *str,int newsize)
+{
+	char *str2;
+	str2 = (char *)malloc(newsize);
+	ft_memcpy(str2,str,ft_strlen(str));
+	return(str2);
 }
