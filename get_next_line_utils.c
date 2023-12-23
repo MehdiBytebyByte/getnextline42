@@ -6,11 +6,12 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:57:04 by mboughra          #+#    #+#             */
-/*   Updated: 2023/12/20 20:54:22 by mboughra         ###   ########.fr       */
+/*   Updated: 2023/12/23 17:55:35 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -18,6 +19,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	s1len;
 	size_t	s2len;
 
+	
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
@@ -48,10 +50,9 @@ size_t	ft_strlcpy(char	*dst,char	*src, size_t	dstsize)
 		dst[i] = src[i];
 		i++;
 	}
-		while (src[i])
-	{
+	dst[i] = '\0';
+	while (src[i])
 		i++;
-	}
 	return (i);
 }
 size_t ft_strlen(char *str)
@@ -63,59 +64,44 @@ size_t ft_strlen(char *str)
 		i++;
 	return (i);
 }
-void	*ft_memcpy(void *dst, void *src, size_t n)
-{
-	unsigned char	*c_dest;
-	unsigned char	*c_src;
-	size_t			i;
 
-	if (dst == src)
-		return ((void *)src);
-	c_dest = (unsigned char *)dst;
-	c_src = (unsigned char *)src;
-	i = 0;
-	while (i < n)
+char	*ft_strjoinplus(char *s1, char *s2,int i)
+{
+	char	*str;
+	size_t	s1len;
+	size_t	s2len;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
 	{
-		c_dest[i] = c_src[i];
-		i++;
+		str = malloc(i + 1);
+		ft_strlcpy(str, s2, i + 1);
+		return(str);
 	}
-	c_dest[i] = '\0';
-	return (dst);
+	if (!s2)
+		return (strdup(s1));
+	s1len = ft_strlen(s1);
+	str = (char *)malloc(s1len + i + 1);
+	if (!str)
+		return (NULL);
+	ft_strlcpy (str, s1, s1len + 1);
+	ft_strlcpy (str + s1len, s2, i + 1);
+	return (str);
 }
-char	*ft_strchr(const char *s, int c)
+char    *ft_strjoinminus(char *s2,int i)
 {
-	char	*char_s;
-	char	char_c;
-	size_t	i;
+    char    *str;
+    size_t    s2len;
+    int diff;
 
-	i = 0;
-	char_c = (char)c;
-	char_s = (char *)s;
-	while (char_s[i])
-	{
-		if (char_s[i] == char_c)
-			return (&char_s[i]);
-		i++;
-	}
-	if (char_c == '\0')
-		return (&char_s[i]);
-	return (NULL);
-}
-int ft_nlfinder(char *n)
-{
-	int i;
-
-	i = 0;
-	while (n[i] && n[i] != '\n')
-		i++;
-	if(ft_strlen(n) == i)
-		return(-1);
-	return (i);
-}
-char	*ft_myrealloc(char *str,int newsize)
-{
-	char *str2;
-	str2 = (char *)malloc(newsize);
-	ft_memcpy(str2,str,ft_strlen(str));
-	return(str2);
+    if (!s2)
+        return (NULL);
+    s2len = ft_strlen(s2);
+    diff = s2len - i;
+    str = (char *)malloc(diff);
+    if (!str)
+        return (NULL);
+    ft_strlcpy (str,s2 + i + 1, diff);
+    return (str);
 }
