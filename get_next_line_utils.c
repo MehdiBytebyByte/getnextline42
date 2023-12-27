@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:57:04 by mboughra          #+#    #+#             */
-/*   Updated: 2023/12/23 17:55:35 by mboughra         ###   ########.fr       */
+/*   Updated: 2023/12/26 15:47:57 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*ft_strjoinplus(char *s1, char *s2,int i)
 {
 	char	*str;
 	size_t	s1len;
-	size_t	s2len;
 
 	if (!s1 && !s2)
 		return (NULL);
@@ -89,19 +88,59 @@ char	*ft_strjoinplus(char *s1, char *s2,int i)
 	ft_strlcpy (str + s1len, s2, i + 1);
 	return (str);
 }
-char    *ft_strjoinminus(char *s2,int i)
+char    *ft_strrem(char *s2)
 {
     char    *str;
     size_t    s2len;
     int diff;
+	int i;
 
+	i = 0;
     if (!s2)
         return (NULL);
+    while (s2[i] != '\n')
+		i++;
     s2len = ft_strlen(s2);
-    diff = s2len - i;
+	diff = s2len - i + 1;
     str = (char *)malloc(diff);
     if (!str)
         return (NULL);
     ft_strlcpy (str,s2 + i + 1, diff);
     return (str);
+}
+char	*ft_strchr(const char *s, int c)
+{
+	char	*char_s;
+	char	char_c;
+	size_t	i;
+
+	i = 0;
+	char_c = (char)c;
+	char_s = (char *)s;
+	while (char_s[i])
+	{
+		if (char_s[i] == char_c)
+			return (&char_s[i]);
+		i++;
+	}
+	if (char_c == '\0')
+		return (&char_s[i]);
+	return (NULL);
+}
+int	ft_strchr2(const char *s, int c)
+{
+	char	*char_s;
+	char	char_c;
+	size_t	i;
+
+	i = 0;
+	char_c = (char)c;
+	char_s = (char *)s;
+	while (char_s[i])
+	{
+		if (char_s[i] == char_c)
+			return (i);
+		i++;
+	}
+	return(0);
 }
