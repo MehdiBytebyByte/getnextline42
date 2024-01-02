@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/02 21:45:44 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/02 22:42:14 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,14 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-int	ft_strchr2(const char *s, int c)
+int	ft_nlindex(char *s)
 {
-	char	*char_s;
-	char	char_c;
 	size_t	i;
 
 	i = 0;
-	char_c = (char)c;
-	char_s = (char *)s;
-	while (char_s[i])
+	while (s[i])
 	{
-		if (char_s[i] == char_c)
+		if (s[i] == '\n')
 			return (i);
 		i++;
 	}
@@ -70,7 +66,7 @@ int	ft_iread(int fd, char **fetcher, char **rem, char **line)
 	nlcheck = ft_strchr(*fetcher, '\n');
 	if (nlcheck != NULL)
 	{
-		*line = ft_strjoinplus(*line, *fetcher, ft_strchr2(*fetcher, '\n') + 1);
+		*line = ft_strjoinplus(*line, *fetcher, ft_nlindex(*fetcher));
 		*rem = ft_strrem(*fetcher);
 		return (2);
 	}
