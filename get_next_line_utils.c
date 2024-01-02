@@ -6,12 +6,11 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:57:04 by mboughra          #+#    #+#             */
-/*   Updated: 2023/12/26 15:47:57 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/02 21:49:28 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -19,7 +18,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	s1len;
 	size_t	s2len;
 
-	
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
@@ -36,7 +34,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[s1len + s2len] = '\0';
 	return (str);
 }
-size_t	ft_strlcpy(char	*dst,char	*src, size_t	dstsize)
+
+size_t	ft_strlcpy(char	*dst, char	*src, size_t	dstsize)
 {
 	size_t	i;
 	char	*s;
@@ -55,9 +54,10 @@ size_t	ft_strlcpy(char	*dst,char	*src, size_t	dstsize)
 		i++;
 	return (i);
 }
-size_t ft_strlen(char *str)
+
+size_t	ft_strlen(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -65,7 +65,7 @@ size_t ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strjoinplus(char *s1, char *s2,int i)
+char	*ft_strjoinplus(char *s1, char *s2, int i)
 {
 	char	*str;
 	size_t	s1len;
@@ -76,7 +76,7 @@ char	*ft_strjoinplus(char *s1, char *s2,int i)
 	{
 		str = malloc(i + 1);
 		ft_strlcpy(str, s2, i + 1);
-		return(str);
+		return (str);
 	}
 	if (!s2)
 		return (strdup(s1));
@@ -88,59 +88,24 @@ char	*ft_strjoinplus(char *s1, char *s2,int i)
 	ft_strlcpy (str + s1len, s2, i + 1);
 	return (str);
 }
-char    *ft_strrem(char *s2)
+
+char	*ft_strrem(char	*s2)
 {
-    char    *str;
-    size_t    s2len;
-    int diff;
-	int i;
+	char	*str;
+	size_t	s2len;
+	int		diff;
+	int		i;
 
 	i = 0;
-    if (!s2)
-        return (NULL);
-    while (s2[i] != '\n')
+	if (!s2)
+		return (NULL);
+	while (s2[i] != '\n')
 		i++;
-    s2len = ft_strlen(s2);
+	s2len = ft_strlen(s2);
 	diff = s2len - i + 1;
-    str = (char *)malloc(diff);
-    if (!str)
-        return (NULL);
-    ft_strlcpy (str,s2 + i + 1, diff);
-    return (str);
-}
-char	*ft_strchr(const char *s, int c)
-{
-	char	*char_s;
-	char	char_c;
-	size_t	i;
-
-	i = 0;
-	char_c = (char)c;
-	char_s = (char *)s;
-	while (char_s[i])
-	{
-		if (char_s[i] == char_c)
-			return (&char_s[i]);
-		i++;
-	}
-	if (char_c == '\0')
-		return (&char_s[i]);
-	return (NULL);
-}
-int	ft_strchr2(const char *s, int c)
-{
-	char	*char_s;
-	char	char_c;
-	size_t	i;
-
-	i = 0;
-	char_c = (char)c;
-	char_s = (char *)s;
-	while (char_s[i])
-	{
-		if (char_s[i] == char_c)
-			return (i);
-		i++;
-	}
-	return(0);
+	str = (char *)malloc(diff);
+	if (!str)
+		return (NULL);
+	ft_strlcpy (str, s2 + i + 1, diff);
+	return (str);
 }
