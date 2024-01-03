@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/02 22:42:14 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/03 01:19:10 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_iread(int fd, char **fetcher, char **rem, char **line)
 	nlcheck = ft_strchr(*fetcher, '\n');
 	if (nlcheck != NULL)
 	{
-		*line = ft_strjoinplus(*line, *fetcher, ft_nlindex(*fetcher));
+		*line = ft_strjoinplus(*line, *fetcher, ft_nlindex(*fetcher) + 1);
 		*rem = ft_strrem(*fetcher);
 		return (2);
 	}
@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 	i = 1;
 	fetcher = (char *)malloc(BUFFER_SIZE + 1);
 	if (fd < 0 || !fetcher || BUFFER_SIZE < 0)
-		return (NULL);
+		return (free(fetcher), NULL);
 	while (i == 1)
 		i = ft_iread(fd, &fetcher, &rem, &line);
 	if (i < 0)
