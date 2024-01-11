@@ -1,16 +1,11 @@
-// #include "get_next_line.h"
+#include "get_next_line.h"
 
-// int	main(void)
-// {
-// 	int	fd;
 
-// 	fd = open("text.txt", O_RDONLY);
+int	main(void)
+{
+	int	fd;
 
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	return (0);
-// }
+	fd = open("test.txt", O_RDONLY, 0644);
+	printf("%s", get_next_line(fd));
+	return (0);
+}

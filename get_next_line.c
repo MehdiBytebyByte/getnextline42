@@ -6,90 +6,112 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/03 01:19:10 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:24:28 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strjoin(char	*s1, char	*s2)
 {
-	char	*char_s;
-	char	char_c;
-	size_t	i;
+	char	*str;
+	size_t	s1len;
+	size_t	s2len;
 
-	i = 0;
-	char_c = (char)c;
-	char_s = (char *)s;
-	while (char_s[i])
-	{
-		if (char_s[i] == char_c)
-			return (&char_s[i]);
-		i++;
-	}
-	if (char_c == '\0')
-		return (&char_s[i]);
-	return (NULL);
+	if (!s1)
+		return (strdup(s2));
+	if (!s2)
+		return (strdup(s1));
+	s1len = ft_strlen(s1);
+	s2len = ft_strlen(s2);
+	str = (char *)malloc(s1len + s2len + 1);
+	if (!str)
+		return (NULL);
+	ft_strlcpy (str, s1, s1len + 1);
+	ft_strlcpy (str + s1len, s2, s2len + 1);
+	free(s1);
+	s1 = NULL;
+	return (str);
 }
 
-int	ft_nlindex(char *s)
+char	*ft_cutback(char *line)
 {
 	size_t	i;
+	size_t	j;
+	size_t	len;
+	size_t	diff;
+	char	*str;
 
 	i = 0;
-	while (s[i])
+	j = 0;
+	while (line[i] != '\n')
+		i++;
+	len = ft_strlen(line);
+	diff = len - i;
+	i++;
+	str = malloc(diff);
+	if (!str)
+		return (NULL);
+	while (j < diff)
 	{
-		if (s[i] == '\n')
-			return (i);
+		str[j] = line[i];
+		j++;
 		i++;
 	}
-	return (0);
+	return (str);
 }
 
-int	ft_iread(int fd, char **fetcher, char **rem, char **line)
+char	*ft_cutfront(char *line)
 {
-	char	*nlcheck;
-	int		i;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	if (*rem != NULL)
+	i = 0;
+	while (line[i] != '\n')
+		i++;
+	i++;
+	str = malloc(i + 1);
+	if (!str)
+		return (NULL);
+	j = 0;
+	while (j < i)
 	{
-		*fetcher = *rem;
-		*rem = NULL;
+		str[j] = line[j];
+		j++;
 	}
-	else
-	{
-		i = read(fd, *fetcher, BUFFER_SIZE);
-		if (i <= 0)
-			return (0);
-		fetcher[0][i] = '\0';
-	}
-	nlcheck = ft_strchr(*fetcher, '\n');
-	if (nlcheck != NULL)
-	{
-		*line = ft_strjoinplus(*line, *fetcher, ft_nlindex(*fetcher) + 1);
-		*rem = ft_strrem(*fetcher);
-		return (2);
-	}
-	if (nlcheck == NULL)
-		*line = ft_strjoin(*line, *fetcher);
-	return (1);
+	str[j] = '\0';
+	return (str);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*rem;
 	char		*line;
-	char		*fetcher;
+	char		*buf;
 	int			i;
 
-	line = NULL;
 	i = 1;
-	fetcher = (char *)malloc(BUFFER_SIZE + 1);
-	if (fd < 0 || !fetcher || BUFFER_SIZE < 0)
-		return (free(fetcher), NULL);
-	while (i == 1)
-		i = ft_iread(fd, &fetcher, &rem, &line);
-	if (i < 0)
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	return (free(fetcher), line);
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
+	if (rem != NULL)
+		line = ft_strjoin(line, rem);
+	while (i > 0 && newcheck(line) == 0)
+	{
+		i = read(fd, buf, BUFFER_SIZE);
+		if (i <= 0)
+			return (NULL);
+		buf[i] = '\0';
+		line = ft_strjoin(line, buf);
+	}
+	if (newcheck(line) == 1)
+	{
+		rem = ft_cutback(line);
+		line = ft_cutfront(line);
+	}
+	return (line);
 }

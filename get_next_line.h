@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:19:54 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/02 22:23:30 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:30:19 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 # include <libc.h>
 
-size_t	ft_strlcpy(char	*dst, char	*src, size_t	dstsize);
 size_t	ft_strlen(char *str);
-int		ft_nlindex(char *s);
-char	*get_next_line(int fd);
+size_t	ft_strlcpy(char	*dst, char	*src, size_t	dstsize);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strjoinplus(char *s1, char *s2, int i);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strrem(char *s2);
+char	*get_next_line(int fd);
+int		newcheck(char *str);
+char	*ft_cutfront(char *line);
+char	*ft_cutback(char *line);
+char	*ft_strdup(char *s1);
+
+
 #endif
