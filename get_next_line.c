@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/16 17:19:39 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/16 21:40:54 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ char	*ft_strjoin(char	*s1, char	*s2)
 	size_t	s2len;
 
 	if (!s1)
-		return (ft_strdup(s2));
+	{
+		str = ft_strdup(s2);
+		return (str);
+	}
 	if (!s2)
 		return (ft_strdup(s1));
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
 	str = (char *)malloc(s1len + s2len + 1);
 	if (!str)
-		return(NULL);
-		// return (free(s2),s2 = NULL, NULLls;
+		return (NULL);
 	ft_strlcpy (str, s1, s1len + 1);
 	ft_strlcpy (str + s1len, s2, s2len + 1);
 	free(s1);
@@ -82,6 +84,8 @@ char	*ft_cutfront(char *line)
 		j++;
 	}
 	str[j] = '\0';
+	free(line);
+	line = NULL;
 	return (str);
 }
 
@@ -95,11 +99,8 @@ char	*get_next_line2(char **line, char **rem, char **buf, int fd)
 		i = read(fd, *buf, BUFFER_SIZE);
 		if (i < 0)
 			return (NULL);
-			// return (free(buf), buf = NULL ,free (rem) , rem = NULL, free(line), line = NULL, NULL);
 		buf[0][i] = '\0';
 		*line = ft_strjoin(*line, *buf);
-		// if(!*line)
-		// 	return(NULL);
 	}
 	if (newcheck(*line) == 1)
 	{
@@ -126,7 +127,7 @@ char	*get_next_line(int fd)
 	if (rem != NULL)
 		line = ft_strjoin(line, rem);
 	line = get_next_line2(&line, &rem, &buf, fd);
-	if(line[0] == 0)
-		return(free(line),free(buf),free(rem),buf = NULL, line = NULL ,rem = NULL,line);
-	return (free(buf),buf = NULL,line);
+	if (line[0] == 0)
+		return (free(line), free(buf), free(rem), buf = NULL, line = NULL, rem = NULL, line);  //LINE TOO LONG !
+	return (free(buf), buf = NULL, line);
 }

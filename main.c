@@ -4,12 +4,14 @@
 int	main(void)
 {
 	int	fd;
+	int i = 0;
 
 	fd = open("test.txt", O_RDONLY, 0644);
-	for (size_t i = 0; i < 200; i++)
+	while (i < 30)
 	{
 		printf("%s",get_next_line(fd));
-	}
+		i++;
 	
+	}
 	return (0);
 }
