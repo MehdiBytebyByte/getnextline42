@@ -6,14 +6,14 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:19:54 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/11 21:30:19 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:00:56 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 1000000
 # endif
 
 # include <libc.h>

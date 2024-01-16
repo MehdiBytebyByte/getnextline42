@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:57:04 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/11 21:30:09 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:19:28 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_strdup(char *s1)
 	i = 0;
 	lenofs = ft_strlen(s1)+1;
 	s2 = malloc(lenofs * sizeof(char));
-	if (s2 == NULL)
+	if (!s2)
 		return (NULL);
 	while (s1[i])
 	{
