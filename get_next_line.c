@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/17 16:24:50 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:02:26 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ char	*get_next_line2(char **line, char **rem, char **buf, int fd)
 	{
 		*rem = ft_cutback(*line);
 		*line = ft_cutfront(*line);
-		if (*rem == NULL)
-			return (NULL);
 		if (*line == NULL)
 			return (free(*rem), *rem = NULL, NULL);
 	}
@@ -122,11 +120,9 @@ char	*get_next_line(int fd)
 
 	i = 1;
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
-		return (free(rem), rem = NULL, NULL);
 	buf = (char *)malloc((size_t)BUFFER_SIZE + 1);
-	if (!buf)
-		return (free(rem), rem = NULL, NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0 || !buf)
+		return (free(rem), free(buf), rem = NULL, NULL);
 	if (rem != NULL)
 	{
 		line = ft_strjoin(line, rem);
@@ -136,9 +132,9 @@ char	*get_next_line(int fd)
 		rem = NULL;
 	}
 	line = get_next_line2(&line, &rem, &buf, fd);
-	if (line == NULL)
+	if (!line)
 		return (free(rem), rem = NULL, NULL);
 	if (line[0] == 0)
-		return (free(rem), rem = NULL,free(line), free(buf), NULL);
+		return (free(rem), rem = NULL,free(NULL), free(buf), NULL);
 	return (free(buf), buf = NULL, line);
 }
