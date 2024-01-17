@@ -7,7 +7,7 @@ int	main(void)
 	int i = 0;
 
 	fd = open("test.txt", O_RDONLY, 0644);
-	while (i < 30)
+	while (i < 10)
 	{
 		printf("%s",get_next_line(fd));
 		i++;

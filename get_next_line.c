@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/16 21:40:54 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:24:50 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ char	*ft_strjoin(char	*s1, char	*s2)
 	size_t	s2len;
 
 	if (!s1)
-	{
-		str = ft_strdup(s2);
-		return (str);
-	}
+		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
 	s1len = ft_strlen(s1);
@@ -76,7 +73,7 @@ char	*ft_cutfront(char *line)
 	i++;
 	str = malloc(i + 1);
 	if (!str)
-		return (NULL);
+		return (free(line), NULL);
 	j = 0;
 	while (j < i)
 	{
@@ -101,11 +98,17 @@ char	*get_next_line2(char **line, char **rem, char **buf, int fd)
 			return (NULL);
 		buf[0][i] = '\0';
 		*line = ft_strjoin(*line, *buf);
+		if (*line == NULL)
+			return (free(*rem), *rem = NULL, NULL);
 	}
 	if (newcheck(*line) == 1)
 	{
 		*rem = ft_cutback(*line);
 		*line = ft_cutfront(*line);
+		if (*rem == NULL)
+			return (NULL);
+		if (*line == NULL)
+			return (free(*rem), *rem = NULL, NULL);
 	}
 	return (*line);
 }
@@ -125,9 +128,17 @@ char	*get_next_line(int fd)
 	if (!buf)
 		return (free(rem), rem = NULL, NULL);
 	if (rem != NULL)
+	{
 		line = ft_strjoin(line, rem);
+		if (!line)
+			return (free(rem), rem = NULL, NULL);
+		free(rem);
+		rem = NULL;
+	}
 	line = get_next_line2(&line, &rem, &buf, fd);
+	if (line == NULL)
+		return (free(rem), rem = NULL, NULL);
 	if (line[0] == 0)
-		return (free(line), free(buf), free(rem), buf = NULL, line = NULL, rem = NULL, line);  //LINE TOO LONG !
+		return (free(rem), rem = NULL,free(line), free(buf), NULL);
 	return (free(buf), buf = NULL, line);
 }
