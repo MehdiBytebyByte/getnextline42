@@ -6,7 +6,7 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:50:10 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/17 21:02:26 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:37:42 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,6 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (free(rem), rem = NULL, NULL);
 	if (line[0] == 0)
-		return (free(rem), rem = NULL,free(NULL), free(buf), NULL);
+		return (free(rem), rem = NULL, free(line), free(buf), NULL);
 	return (free(buf), buf = NULL, line);
 }
