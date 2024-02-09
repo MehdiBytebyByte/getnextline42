@@ -6,14 +6,14 @@
 /*   By: mboughra <mboughra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:03:27 by mboughra          #+#    #+#             */
-/*   Updated: 2024/01/18 15:04:34 by mboughra         ###   ########.fr       */
+/*   Updated: 2024/01/18 20:50:20 by mboughra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1000
 # endif
 
 # include <libc.h>
@@ -26,5 +26,6 @@ int		newcheck(char *str);
 char	*ft_cutfront(char *line);
 char	*ft_cutback(char *line);
 char	*ft_strdup(char *s1);
+int		ft_protection(int fd, char **line, int *i);
 
 #endif
