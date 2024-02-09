@@ -1,6 +1,5 @@
 Project: get_next_line
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Introduction
 The get_next_line project, part of the 42 Cursus, is a fundamental exercise in C programming. Its primary objective is to create a function that reads 📖 a line from a file descriptor,
 which could be a file, standard input, or any other stream. The function is designed to read a line from the given file descriptor until a newline character is encountered.
 This project provides a practical introduction to working with file descriptors,
